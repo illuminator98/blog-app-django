@@ -43,5 +43,3 @@ def logout_user(request):
 	token = Token.objects.get(user=request.user)
 	token.delete()
 	return Response(status=200)
-  
-  

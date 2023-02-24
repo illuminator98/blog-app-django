@@ -9,7 +9,6 @@ from django.db.models.signals import post_save
 
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    #avatar = models.ImageField(upload_to='avatars',default='avatars/default.png')
     age =models.IntegerField(null=True, blank=True)
     avatar=models.ImageField(default='blog_app/media/avatar.png')  
 
@@ -29,4 +28,3 @@ class Comment(models.Model):
     user=models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     text=models.CharField(max_length=511)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    

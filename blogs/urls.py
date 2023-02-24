@@ -2,10 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('posts', views.PostViewSet.as_view({
-    #     'get': 'get_all_posts',
-    #     'post': 'create_post'
-    # }), name='post_list'),
     path('posts/<int:posts_id>',views.PostViewSet.as_view({
         'get':'get_post',
         'delete':'delete_post',
@@ -18,8 +14,7 @@ urlpatterns = [
         'delete':'delete_comment',
         'patch':'edit_comment'
     }),name='get_comment'),
-    path('<int:user_id>/posts',views.get_all_user_posts,name='all_user_posts'),
+    path('posts/<str:username>',views.get_all_user_posts,name='all_user_posts'),
     path('username/',views.get_username,name='get_username'),
-    path('age/',views.get_age, name='get_age')
 ]
 # 

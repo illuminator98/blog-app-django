@@ -3,20 +3,22 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from blogs.models import UserProfile
 
-class UserProfileSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = UserProfile
-		fields = ['age','avatar']
-
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('username','password','id')
 		read_only_fields=['post_set']
+		extra_kwargs = {'password': {'write_only': True}}
 
 	def create(self, validated_data):
 		validated_data['password'] = make_password(validated_data['password'])
 		return super().create(validated_data)
+
+class UserProfileSerializer(serializers.ModelSerializer):
+	user = UserSerializer(read_only=True)
+	class Meta:
+		model = UserProfile
+		fields = ['age','avatar', 'user']
 
 class LoginSerializer(serializers.Serializer):
 	username = serializers.CharField(max_length=255)

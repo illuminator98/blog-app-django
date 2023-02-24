@@ -5,10 +5,15 @@ from login.serializers import UserSerializer,UserProfileSerializer
 
 
 class CommentSerializer(serializers.ModelSerializer):   
-    # user = UserProfileSerializer(read_only=True)
+    user = UserProfileSerializer(read_only=True)
     class Meta:
         model = Comment
         fields = ['user','text','post','id']
+
+class CreateCommentSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = Comment
+        fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):
